@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import app from "../../src/index";
+import app from "../../src/app";
 
 describe("User routes", () => {
   test("Get all users", async () => {

@@ -1,13 +1,5 @@
-import express, { Application, Request, Response, NextFunction } from "express";
+import app from "./app";
 
-import { router as userRoutes } from "./routes/user.routes";
+const PORT: number = 5050;
 
-const app: Application = express();
-
-app.use("/users", userRoutes);
-
-app.use("/", (req: Request, res: Response, next: NextFunction): void => {
-  res.json({ message: "Allo! Catch-all route." });
-});
-
-export default app;
+app.listen(PORT, (): void => console.log(`running on port ${PORT}`));
