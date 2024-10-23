@@ -1,10 +1,10 @@
 {
   "name": "task-management",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "jest --coverage",
-    "dev": "nodemon ./dist/index.js",
+    "start": "nodemon ./src/index.ts",
     "build": "tsc"
   },
   "keywords": [],
