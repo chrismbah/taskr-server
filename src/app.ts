@@ -2,7 +2,7 @@ import express, { Application, Request, Response, NextFunction } from "express";
 
 import { router as userRoutes } from "./routes/user.routes";
 
-const app: Application = express();
+export const app: Application = express();
 
 app.use("/users", userRoutes);
 

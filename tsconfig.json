@@ -1,5 +1,6 @@
 {
   "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"],
+  "include" : ["./api/*.ts"],
   "ts-node": {
     "transpileOnly": true,
     "files": true
