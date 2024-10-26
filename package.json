@@ -1,10 +1,10 @@
 {
   "name": "taskr",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "app.ts",
   "scripts": {
-    "start": "npx nodemon src/index.ts",
-    "dev": "npx nodemon src/index.ts",
+    "start": "npx nodemon src/app.ts",
+    "dev": "npx nodemon src/app.ts",
     "test": "jest --coverage",
     "build:ui": "@powershell Remove-Item -Recurse -Force dist && cd ../frontend && npm run build && @powershell Copy-Item -Recurse dist ../backend",
     "lint": "eslint .",
