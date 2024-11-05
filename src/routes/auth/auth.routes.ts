@@ -1,17 +1,15 @@
 import { Router } from "express";
-import { getAllUsers, createUser } from "../../controllers/user.controller";
+import { registerUser } from "../../controllers/auth/register";
 import { checkSchema } from "express-validator";
 import { handleValidationErrors } from "../../middlewares/validationErrorHandler";
 import { userValidationSchema } from "../../validations/userValidationSchema";
 
 const router = Router();
-
-router.get("/", getAllUsers);
-router.post(
-  "/create-user",
+router.use(
+  "/register",
   checkSchema(userValidationSchema),
   handleValidationErrors,
-  createUser
+  registerUser
 );
 
 export default router;

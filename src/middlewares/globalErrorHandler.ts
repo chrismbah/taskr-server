@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import AppError from "../utils/AppError";
+import { AppResponse } from "../utils/AppResponse"; // Adjust the path as necessary
 
 // Error Handler for Development Environment
 const devError = (err: AppError, res: Response) => {
-  res.status(err.statusCode).json({
+  AppResponse(res, err.statusCode, {
     status: err.status,
     error: err,
     message: err.message,
@@ -14,16 +15,13 @@ const devError = (err: AppError, res: Response) => {
 // Error Handler for Production Environment
 const prodError = (err: AppError, res: Response) => {
   if (err.isOperational) {
-    res.status(err.statusCode).json({
+    AppResponse(res, err.statusCode, {
       status: err.status,
       message: err.message,
     });
   } else {
     console.error("ERROR", err);
-    res.status(500).json({
-      status: "error",
-      message: "Something went wrong!",
-    });
+    AppResponse(res, 500, null, "Something went wrong!");
   }
 };
 
@@ -43,4 +41,3 @@ export const globalErrorHandler = (
     prodError(err, res);
   }
 };
-

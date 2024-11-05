@@ -6,7 +6,7 @@ import routes from "./routes";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { connectDB } from "./config/db";
 import AppError from "./utils/AppError";
-
+import "./config";
 export const app: Application = express();
 
 // Middlewares
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(logger("dev"));
 
-// Routes
+// All Routes
 app.use("/api", routes);
 
 // Handle undefined routes with AppError
@@ -30,7 +30,10 @@ connectDB();
 
 const PORT: number = 5050;
 
-if (process.env.NODE_ENV == "development") {
+if (
+  process.env.NODE_ENV == "development" ||
+  process.env.NODE_ENV == "production"
+) {
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
