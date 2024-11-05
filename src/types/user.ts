@@ -2,8 +2,8 @@ import { Document } from "mongoose";
 import { ITask } from "./tasks";
 
 export interface IUser extends Document {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   isActive: boolean;

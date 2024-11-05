@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(logger("dev"));
 
 // All Routes
-app.use("/api", routes);
+app.use("/api/v1/", routes);
 
 // Handle undefined routes with AppError
 app.use((req: Request, res: Response, next: NextFunction) => {
