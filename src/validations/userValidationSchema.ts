@@ -1,5 +1,26 @@
 import { Schema } from "express-validator";
 
+export const userLoginSchema: Schema = {
+  email: {
+    isEmail: {
+      errorMessage: "Please provide a valid email address",
+    },
+    normalizeEmail: true,
+    notEmpty: {
+      errorMessage: "Email is required",
+    },
+  },
+  password: {
+    isLength: {
+      options: { min: 8 },
+      errorMessage: "Password should be at least 8 characters long",
+    },
+    notEmpty: {
+      errorMessage: "Password cannot be empty",
+    },
+  },
+};
+
 export const userRegisterationSchema: Schema = {
   firstName: {
     isString: {
