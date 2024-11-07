@@ -2,11 +2,8 @@ import { NextFunction, Response, Request } from "express";
 import jwt from "jsonwebtoken";
 import "../config";
 import AppError from "../utils/AppError";
-import { AppResponse } from "../utils/AppResponse";
+import { AuthRequest } from "../types";
 
-export interface AuthRequest extends Request {
-  user?: any; // This will hold the user data from the token
-}
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const verifyToken = (
@@ -16,13 +13,15 @@ export const verifyToken = (
 ) => {
   const authHeader = req.headers.authorization;
   if (!JWT_SECRET) return next(new AppError("JWT secret not found", 404));
+
   if (authHeader && authHeader.startsWith("Bearer ")) {
     const token = authHeader.split(" ")[1]; // Extract the token part after 'Bearer'
 
     // Verify the token
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
       if (err) {
-        return AppResponse(res, 201, "error", "Token is not valid or expired");
+        // Use next to pass the error
+        return next(new AppError("Token is not valid or expired", 401));
       }
       // Attach user data from the token to the request object
       req.user = decoded;
@@ -32,6 +31,6 @@ export const verifyToken = (
     });
   } else {
     // If no token is provided in the Authorization header
-    return AppResponse(res, 401, "Authorization token is missing");
+    return next(new AppError("Authorization token is missing", 401));
   }
 };

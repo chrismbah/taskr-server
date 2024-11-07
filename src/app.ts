@@ -3,7 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import routes from "./routes";
-import { globalErrorHandler } from "./middlewares/globalErrorHandler";
+import { globalErrorHandler } from "./middlewares/errors.middleware";
 import { connectDB } from "./config/db";
 import AppError from "./utils/AppError";
 import "./config";

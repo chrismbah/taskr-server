@@ -1,16 +1,16 @@
 import { Router } from "express";
-import { loginUser, registerUser } from "../controllers/auth.controllers";
+import { loginUser, registerUser } from "../controllers/auth.controller";
 import { checkSchema } from "express-validator";
-import { handleValidationErrors } from "../middlewares/validationErrorHandler";
+import { handleValidationErrors } from "../middlewares/validation.middleware";
 import {
-  userRegisterationSchema,
+  userRegistrationSchema,
   userLoginSchema,
-} from "../validations/userValidationSchema";
+} from "../validators/user.validator";
 
 const router = Router();
 router.post(
   "/register",
-  checkSchema(userRegisterationSchema),
+  checkSchema(userRegistrationSchema),
   handleValidationErrors,
   registerUser
 );

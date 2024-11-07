@@ -1,6 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
-import { IUser } from "../../types/user";
-import { taskSchema } from "../Task";
+import { IUser } from "../types/user";
+import { taskSchema } from "./Task";
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
   firstName: { type: String, required: true },
