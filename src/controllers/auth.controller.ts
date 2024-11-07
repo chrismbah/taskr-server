@@ -4,8 +4,7 @@ import { catchAsync } from "../utils/catchAsync"; // Import catchAsync
 import { AppResponse } from "../utils/AppResponse";
 import bcrypt from "bcryptjs";
 import AppError from "../utils/AppError";
-import jwt from "jsonwebtoken";
-import "../config";
+import { generateToken } from "../utils/generateToken";
 
 // Register User
 export const registerUser = catchAsync(async (req: Request, res: Response) => {
@@ -25,7 +24,7 @@ export const registerUser = catchAsync(async (req: Request, res: Response) => {
   AppResponse(res, 201, userWithoutPassword, "User registered successfully");
 });
 
-// Login User
+
 export const loginUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
@@ -40,10 +39,7 @@ export const loginUser = catchAsync(
       next(new AppError("Invalid email or password", 401));
     }
     // Generate JWT
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
-      expiresIn: "7d", // Token expiration time
-    });
-
+    const token = generateToken(user._id as string);
     AppResponse(
       res,
       200,
@@ -52,3 +48,4 @@ export const loginUser = catchAsync(
     );
   }
 );
+
