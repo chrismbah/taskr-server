@@ -9,28 +9,34 @@ import { connectDB } from "./config/db";
 import AppError from "./utils/AppError";
 import "./config";
 
+// Initializing an instance of the Express application
 export const app: Application = express();
-// Middlewares
+
+// Middleware to parse incoming JSON payloads in requests
 app.use(express.json());
+
+// Enabling CORS to allow requests from different origins
 app.use(cors());
+
+// Middleware to parse cookies attached to client requests
 app.use(cookieParser());
+
+// Middleware to log HTTP requests to the console in development
 app.use(logger("dev"));
+
+// Defining the main API route and linking it to the application's routes
 app.use("/api/v1/", routes);
 
-app.use(function(req, res, next) {  
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-// Handle undefined routes with AppError
+// Middleware to handle undefined routes, creating a 404 error if the route does not exist
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-// Global error handler
+// Middleware to handle all application errors globally
 app.use(globalErrorHandler);
 
 connectDB();
+
 const PORT: number = 5050;
 if (
   process.env.NODE_ENV == "development" ||
